@@ -14,7 +14,6 @@ void app_main(void)
     bool sensor_close = 1;
     bool button = 0;
     bool button_last_state = 0; 
-    //Atenção, os sensores tem HIGH/LOW invertidos!
     
     while(true)
     {
@@ -35,12 +34,14 @@ void app_main(void)
             
             //Portão abrindo(led amarelo fica aceso):
             if(gate_status == 1){
+                printf("if1 \n");
                 gpio_set_level(LED_PIN_YELLOW, gate_status);
                 gpio_set_level(LED_PIN_RED, !gate_status);
             }
 
             //Portão fechando(led vermelho fica aceso):
-            if(gate_status == 0){
+            else if(gate_status == 0){
+                printf("if2 \n");
                 gpio_set_level(LED_PIN_YELLOW, gate_status);
                 gpio_set_level(LED_PIN_RED, !gate_status);
             }
@@ -50,13 +51,15 @@ void app_main(void)
         // Status do portão abrindo ou aberto, mas o sensor detecta aproximação.
         // Logo, o portão já está aberto
         if((gate_status == 1) && (sensor_open == 0)){
+            printf("entrando aqui if3 \n");
             gpio_set_level(LED_PIN_YELLOW, gate_status);
             gpio_set_level(LED_PIN_RED, gate_status);            
         }
         
         // Status do portão fechando ou fechado, mas o sensor mas o sensor detecta aproximação.
         // Logo, o portão já está fechado
-        if((gate_status == 0) && (sensor_close == 0)){
+        if((gate_status == 0) && (sensor_close == 0)){            
+            printf("entrando aqui f4 i\n");
             gpio_set_level(LED_PIN_YELLOW, gate_status);
             gpio_set_level(LED_PIN_RED, gate_status);
         }
